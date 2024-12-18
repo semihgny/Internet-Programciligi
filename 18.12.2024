@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="row">
+
+        <div class="column-12"></div>
+
+        <div class="Card">
+            <div class="Class-Header">
+                <h3>Görevler</h3>
+                <ul id="task-list">
+                    <div class="column-12">
+                                        <input type="text" id="userInput">
+
+                        <button class="clicked">Eklemek için tıklayın</button>
+                        <br>
+                        <br>
+
+                    </div>
+
+                </ul>
+
+            </div>
+        </div>
+
+
+    </div>
+
+    <script>
+
+        let gorevler = [{ "id": 1, "GorevAdi": "Gorev 1" }, { "id": 2, "GorevAdi": "Gorev 2" }];
+
+        let ul = document.getElementById("task-list")
+        let bt = document.getElementById("clicked")
+        ul.addEventListener("click", function(){
+             let userLi = document.getElementById("userInput").value;
+            console.log(userLi)
+            let ul = document.getElementById("task-list");
+
+
+            let newGorev = {
+
+                id: gorevler.length + 1,
+                GorevAdi: userLi
+
+            }
+
+            let li = `
+                 <li class="task-list-group-item">
+                            <div class="form-check">
+                                <input type="checkbox" id="${newGorev.id}" class="form-check-input">
+                                <label for="${newGorev.id}" class="form-check-input">${newGorev.GorevAdi}</label>
+                            </div>
+                        </li>
+        `;
+
+        ul.insertAdjacentHTML("beforeend", li);
+
+            gorevler.push(newGorev)
+
+
+
+        })
+      
+
+        for (let gorev of gorevler) {
+
+            let li = `
+                 <li class="task-list-group-item">
+                            <div class="form-check">
+                                <input type="checkbox" id="${gorev.id}" class="form-check-input">
+                                <label for="${gorev.id}" class="form-check-input">${gorev.GorevAdi}</label>
+                            </div>
+                        </li>
+        `;
+
+        ul.insertAdjacentHTML("beforeend", li);
+
+        };
+
+        // document.querySelector("#task-list").children[1].remove();
+
+    </script>
+</body>
+
+</html>
