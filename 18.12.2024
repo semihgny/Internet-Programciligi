@@ -20,7 +20,7 @@
                     <div class="column-12">
                                         <input type="text" id="userInput">
 
-                        <button class="clicked">Eklemek için tıklayın</button>
+                        <button id="clicked">Eklemek için tıklayın</button>
                         <br>
                         <br>
 
@@ -40,7 +40,7 @@
 
         let ul = document.getElementById("task-list")
         let bt = document.getElementById("clicked")
-        ul.addEventListener("click", function(){
+        bt.addEventListener("click", function(){
              let userLi = document.getElementById("userInput").value;
             console.log(userLi)
             let ul = document.getElementById("task-list");
