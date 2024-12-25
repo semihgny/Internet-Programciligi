@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="row">
+
+        <div class="column-12"></div>
+
+        <div class="Card">
+            <div class="Class-Header">
+                <h3>Görevler</h3>
+                <ul id="task-list">
+                    <div class="column-12">
+                        <input type="text" id="userInput">
+                        <button id="clicked">Eklemek için tıklayın</button>
+                        <br>
+                        <br>
+                    </div>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let gorevler = [{ "id": 1, "GorevAdi": "Gorev 1" }, { "id": 2, "GorevAdi": "Gorev 2" }];
+
+        let ul = document.getElementById("task-list");
+        let bt = document.getElementById("clicked");
+
+        bt.addEventListener("click", function () {
+            let userLi = document.getElementById("userInput").value;
+
+            if (userLi.trim() === "") {
+                alert("Lütfen bir görev adı yazın!");
+                return;
+            }
+
+            let newGorev = {
+                id: gorevler.length + 1,
+                GorevAdi: userLi
+            };
+
+            addTaskToDOM(newGorev);
+            gorevler.push(newGorev);
+            document.getElementById("userInput").value = "";
+        });
+
+        for (let gorev of gorevler) {
+            addTaskToDOM(gorev);
+        }
+
+        function addTaskToDOM(gorev) {
+            let li = `
+                <li class="task-list-group-item" id="gorev-${gorev.id}">
+                    <div class="form-check">
+                        <input type="checkbox" id="${gorev.id}" class="form-check-input">
+                        <label for="${gorev.id}" class="form-check-input">${gorev.GorevAdi}</label>
+                        <button onclick="deleteTask(${gorev.id})">Sil</button>
+                        <button onclick="editTask(${gorev.id})">Düzenle</button>
+                    </div>
+                </li>
+            `;
+            ul.insertAdjacentHTML("beforeend", li);
+        }
+
+        function deleteTask(id) {
+            document.getElementById(`gorev-${id}`).remove();
+            gorevler = gorevler.filter(gorev => gorev.id !== id);
+        }
+
+        function editTask(id) {
+            let gorev = gorevler.find(gorev => gorev.id === id);
+            let newTaskName = prompt("Görevi düzenle:", gorev.GorevAdi);
+            if (newTaskName && newTaskName.trim() !== "") {
+                gorev.GorevAdi = newTaskName;
+                document.querySelector(`#gorev-${id} label`).innerText = newTaskName;
+            }
+        }
+    </script>
+</body>
+
+</html>
